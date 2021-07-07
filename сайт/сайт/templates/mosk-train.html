@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+
+<style>
+    body{
+    background: url(https://psv4.userapi.com/c848128/u142872896/docs/d4/fe45d058ab68/train0.jpg?extra=Hw4Ia2U945MEanFmInf3fbHObuy1wRh3mzEqCjICxUe7hH4IJifiT1ubkUicTrMN7N0IbOypCCuVdw2VCnheUevBUO1krVxIZmK6J6WLc7NgYs1tbjY987W-aThFEwWiS0slysWYspk7gvOtOZld);
+    background-size: 100%;
+}
+p {
+line-height: 1.5;
+    font-size: 14pt; /* Размер шрифта в пунктах */
+   }
+   td {
+line-height: 1.5;
+    font-size: 14pt; /* Размер шрифта в пунктах */
+   }
+</style>
+<body background="train0.jpg">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="http://127.0.0.1:8000">Расписание СПб</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+    <ul class="navbar-nav mr-auto">
+       <span class="navbar-text">
+      Вокзалы:
+    </span>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'ladozh' %}">Ладожский</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'mosk' %}">Московский</a>
+      </li>
+    </ul>
+
+    {% if user.login == null  %}
+        <a href="{% url 'vhod' %}"> <button class="btn btn-outline-success mr-sm-2" onclick = location.href="http://127.0.0.1:8000/vhod" >Вход</button></a>
+        <button class="btn btn-outline-success my-2 my-sm-0" onclick = location.href="http://127.0.0.1:8000/vhod" >Регистрация</button>
+    {% endif %}
+    {% if user.login != null  %}
+    <span class="navbar-text"> {{user.name}}  {{user.surname}}    </span>
+     <form><input type="submit" class="btn btn-outline-success my-2 my-sm-0" name="exit" value="Выход"></form>
+    {% endif %}
+
+</nav>
+
+{% if user.status == "admin"  %}
+ <div style="margin-top:10px;
+    margin-left: 100px;
+    margin-right: 100px;
+    padding: 20px;">
+     <button class="btn btn-secondary d-block ml-auto" type="button" data-toggle="collapse" data-target="#collapsExample" >
+    Редактировать
+    </button>
+
+
+    <div class="collapse" id="collapsExample">
+  <div class="card card-body">
+        <form method="get" action="" >
+
+
+
+            <p><h5>   Номер поезда</h5></p>
+            <input name="номер" placeholder="Название">
+
+            <p><h5> Модель поезда</h5></p>
+            <input name="модель" placeholder="Название">
+
+            <p><h5>Направление</h5></p>
+            <input name="направление" placeholder="Длительность">
+
+            <p><h5>Время прибытия</h5></p>
+            <input name="ВремяП" placeholder="Длительность">
+
+            <p><h5>Время отправления</h5></p>
+            <input name="ВремяО" placeholder="Длительность">
+
+             <p><h5>Оценка</h5></p>
+            <input name="оценка" placeholder="Длительность">
+
+             <p><h5>Класс обслуживания</h5></p>
+            <input name="класс" placeholder="Длительность">
+
+            <p><button type="submit" class="btn btn-warning" >Подтвердить</button></p>
+        </form>
+  </div>
+</div>
+ </div>
+{% endif %}
+
+
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;opacity: 0.9;margin-top:10px;
+    margin-left: 100px;
+    margin-right: 100px;
+    padding: 20px;">
+
+  <!--<span class="navbar-text"style="color: #0000;opacity: 0.5;">-->
+    <font  color="black"> <h2>{{номер}}  {{направление}}</h2><p>
+
+    </font>
+    <div style="
+
+    margin-right: 500px;
+    ">
+        <font  color="#00cc66"> <h4>{{модель}}  {{класс}}</h4></font>
+       <font  color="#7f877e"> <h4>Оценка поезда:  {{оценка}}
+  <button class="btn btn-secondary  ml-auto" type="button" data-toggle="collapse" data-target="#collapseExample" >
+    Оценить
+  </button></h4>
+{% if error != None  %}<font  color="#ff3333"><h4>{{error}}</h4></font>{% endif %}
+
+
+    <div class="collapse" id="collapseExample">
+  <div class="card card-body">
+      {% if user.status != None  %}
+      <form method="get">
+
+              <p><h5>Введите оценку от 1 до 10</h5></p>
+            <input name="оценка1" placeholder="номер">
+        <p><button type="submit" class="btn btn-warning" >Подтвердить</button></p>
+
+      </form>
+      {% else %}
+      <h5>Пожалуйста авторизуйтесть</h5>
+      {% endif %}
+  </div>
+</div>
+
+           <h4>Маршрут:</h4></font>
+    </div>
+
+
+
+        <table class="table table-bordered "style="background-color: #e3f2fd;opacity: 1;">
+        <thead class="thead-dark">
+        <tr><th>Станция</th><th>   Прибытие</th><th> Отправления</th></tr>
+
+        {% for a in маршрут %}
+
+           <tr><td>{{a.станция}} </td><td>    {{a.времяП}}   </td><td> {{a.времяО}}  </td>  </tr>
+
+
+        {% endfor %}
+ </table>
+</nav>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</body>
+</html>

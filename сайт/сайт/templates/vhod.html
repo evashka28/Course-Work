@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</head>
+
+<style>
+    body{
+    background: url(https://psv4.userapi.com/c848128/u142872896/docs/d4/fe45d058ab68/train0.jpg?extra=Hw4Ia2U945MEanFmInf3fbHObuy1wRh3mzEqCjICxUe7hH4IJifiT1ubkUicTrMN7N0IbOypCCuVdw2VCnheUevBUO1krVxIZmK6J6WLc7NgYs1tbjY987W-aThFEwWiS0slysWYspk7gvOtOZld);
+    background-size: 100%;
+}
+p {
+line-height: 1.5;
+    font-size: 14pt; /* Размер шрифта в пунктах */
+   }
+   td {
+line-height: 1.5;
+    font-size: 14pt; /* Размер шрифта в пунктах */
+   }
+</style>
+
+
+<body background="train0.jpg">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="http://127.0.0.1:8000">Расписание СПб</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+    <ul class="navbar-nav mr-auto">
+       <span class="navbar-text">
+      Вокзалы:
+    </span>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'ladozh' %}">Ладожский</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'mosk' %}">Московский</a>
+      </li>
+    </ul>
+
+    {% if user.login == null  %}
+
+        <button class="btn btn-outline-success my-2 my-sm-0" onclick = location.href="http://127.0.0.1:8000/registr" >Регистрация</button>
+    {% endif %}
+    {% if user.login != null  %}
+    <span class="navbar-text"> {{user.name}}  {{user.surname}}    </span>
+     <form><input type="submit" class="btn btn-outline-success my-2 my-sm-0" name="exit" value="Выход"></form>
+    {% endif %}
+
+</nav>
+{% if user.login == null  %}
+    <div class="col-sm">
+
+        {% if login == None and password == None %}
+
+            <p><h3>Войти в профиль</h3></p>
+            <font  color="#ff3333"><h2>{{error}}</h2></font>
+            <form method="get">
+                <div class="form-group">
+                    <label >Логин</label>
+                    <input name="login" class="form-control" placeholder="Логин">
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input name="password" class="form-control" placeholder="Пароль">
+                </div>
+                <button type="submit"  class="btn btn-primary">Submit</button>
+            </form>
+        {% endif %}
+        {% if login != None and password != None %}
+            {% if result == "true" %}
+                <h3>Добро пожаловать, {{ login }}!</h3>
+
+
+            {% endif %}
+        {% endif %}
+    </div>
+
+{% else %}<h1>Ошибка</h1>
+
+{% endif %}
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</body>
+</html>
